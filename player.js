@@ -22,9 +22,16 @@ update() {
      var playerRef = database.ref("players/player" + this.index);
           playerRef.set({
                name : this.name,
-               x : this.position.x,
-               y : this.position.y,
+               x : this.x,
+               y : this.y,
           })
 }
 
+static getAllPlayersInfo() { // STATIC FUNCTION
+     var playersData = database.ref("players");
+     playersData.on("value", function(data) {
+          allPlayers = data.val();
+     });
 }
+}
+

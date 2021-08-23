@@ -6,6 +6,12 @@ var form;
 var player;
 var playerCount;
 var endMessageWritten = false;
+var adventurers = [];
+var zombies = [];
+var allPlayers;
+var zom;
+var zomGroup;
+var edges;
 
 function preload() {
 
@@ -24,7 +30,7 @@ function preload() {
   deadAdv3 = loadImage("deadAdv3.jpg");
   rightAdv3 = loadImage("rightAdv3.jpg");
   leftAdv3 = loadImage("leftAdv3.jpg");
-  straightAdv3 = loadImage("StraightAdv3.jpg");
+  straightAdv3 = loadImage("StraightAdv3.png");
 
 }
 
@@ -33,9 +39,7 @@ function setup() {
   database = firebase.database();
 
   createCanvas(displayWidth, displayHeight);
-  adv1 = createSprite(400, 230, 20, 20);
-  adv2 = createSprite(400, 260, 20, 20);
-  adv3 = createSprite(400, 290, 20, 20);
+  
 
   game = new Game();
   game.getState();
@@ -44,22 +48,20 @@ function setup() {
     game.start();
   }
   
-  if(gameState === 1) {
-    game.play();
-}
-
-  if(gameState === 2) {
-    game.end();
-} 
 }
 
 function draw() {
   background(backgroundImg);  
 
   if(playerCount === 3 && gameState === 0) {
-    game.updateState(1);
+    game.updateState(1);   
 }
 
+if(gameState === 1) {
+  game.play();
+}
 
- 
+if(gameState === 2) {
+  game.end();
+} 
 }
