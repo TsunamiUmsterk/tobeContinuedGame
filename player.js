@@ -3,6 +3,7 @@ class Player { constructor() {
      this.index = 0;
      this.x = displayWidth/2;
      this.y = displayHeight/2;
+     this.status = "active";
 }
 
 getCount() {
@@ -18,12 +19,26 @@ updateCount(value) {
      });
 }
 
+getFinishedPlayers() {
+     var finishedPlayerRef = database.ref("finishedPlayers");
+     finishedPlayerRef.on("value", function(data) { 
+           finishedPlayers = data.val();
+     })
+}
+
+updateFinishedPlayers(value) {
+     database.ref("/").update({
+          finishedPlayers : value
+     });
+}
+
 update() {
      var playerRef = database.ref("players/player" + this.index);
           playerRef.set({
                name : this.name,
                x : this.x,
                y : this.y,
+               status : this.status, 
           })
 }
 

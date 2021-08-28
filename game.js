@@ -50,7 +50,7 @@ start() {
   
 
 for(var i=1; i <= 20; i++) {
-    zom = createSprite(Math.round(random(1, displayWidth/2 - 200)), Math.round(random(1, displayHeight)), 20, 20);
+    zom = createSprite(Math.round(random(1, displayWidth/2 - 300)), Math.round(random(1, displayHeight)), 20, 20);
 
     var value = Math.round(random(1, 7));
 
@@ -71,6 +71,7 @@ for(var i=1; i <= 20; i++) {
     }
     zombies.push(zom);
     zomGroup.add(zom);
+    
 
     edges = createEdgeSprites();
 }
@@ -82,6 +83,7 @@ play() {
      form.greeting1.hide();
 
      Player.getAllPlayersInfo(); // static functions can be called directly using the class name
+     
      if(allPlayers !== undefined) {
          var index = 0;
          var y = -100
@@ -93,7 +95,8 @@ play() {
              }                
              
          }
-
+        
+         zomGroup.bounceOff(zomGroup);
          zomGroup.collide(edges);
          adv1.collide(edges);
          adv2.collide(edges);
@@ -104,7 +107,10 @@ play() {
         
          drawSprites();
      }
-
+displayMessage() {
+    textSize(40);
+    text("You have won! Congrats!🥳", displayWidth/2 - 150, displayHeight/2);
+}
 
 movePlayer() {
     if(keyDown(UP_ARROW)) {
@@ -128,23 +134,28 @@ movePlayer() {
 
 moveZombies() {
     for(var i=0; i < zombies.length; i++) {
-        if(zombies[i].x < player.x) {
+        if(zombies[i].x <= player.x) {
             zombies[i].x += 2;
-        } if(zombies[i].x > player.x) {
+        } else if(zombies[i].x >= player.x) {
             zombies[i].x += -2;
         }
 
-        if(zombies[i].y < player.y) {
+        if(zombies[i].y <= player.y) {
             zombies[i].y += 2;
-        } if(zombies[i].y >  player.y) {
+        } else if(zombies[i].y >= player.y) {
             zombies[i].y += -2;
         }
     }
 }
 
 zomTouch() {
+    console.log(player.index-1);
+    console.log(adventurers[player.index-1])
     if(adventurers[player.index-1].isTouching(zomGroup)) {
         gameState = 2;
+        player.updateFinishedPlayers(finishedPlayers+ 1);
+        player.status = "inactive";
+        player.update();
     }
 }
 

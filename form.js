@@ -39,6 +39,8 @@ display() {
       this.resetButton.mousePressed( function () {
            game.updateState(0);
            player.updateCount(0);
+           player.updateFinishedPlayers(0);
+           window.location.reload();
 
            database.ref("players").remove();
       })

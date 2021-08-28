@@ -12,6 +12,7 @@ var allPlayers;
 var zom;
 var zomGroup;
 var edges;
+var finishedPlayers = 0;
 
 function preload() {
 
@@ -53,15 +54,21 @@ function setup() {
 function draw() {
   background(backgroundImg);  
 
+  player.getFinishedPlayers();
+
   if(playerCount === 3 && gameState === 0) {
     game.updateState(1);   
 }
 
-if(gameState === 1) {
+if(gameState === 1 && finishedPlayers !== 2) {
   game.play();
 }
 
 if(gameState === 2) {
   game.end();
 } 
+
+if(finishedPlayers === 2 && gameState === 1) {
+  game.displayMessage();
+}
 }
