@@ -51,23 +51,23 @@ start() {
 
 for(var i=1; i <= 20; i++) {
     zom = createSprite(Math.round(random(1, displayWidth/2 - 300)), Math.round(random(1, displayHeight)), 20, 20);
-
+    zom.debug = true;
     var value = Math.round(random(1, 7));
 
     if(value === 1) {
-    //    zom.addImage();
+    zom.addAnimation("walking", zombie1);
     } else if (value === 2) {
-    //    zom.addImage();
+    zom.addAnimation("walking", zombie2);
     } else if (value === 3) {
-    //    zom.addImage();
+    zom.addAnimation("walking", zombie3);
     } else if(value === 4) {
-    //    zom.addImage();
+    zom.addAnimation("walking", zombie4);
     } else if (value === 5) {
-    //    zom.addImage();
+    zom.addAnimation("walking", zombie5);
     } else if (value === 6) {
-
+    zom.addAnimation("walking", zombie6);
     } else if (value === 7) {
-        
+    zom.addAnimation("walking", zombie7);        
     }
     zombies.push(zom);
     zomGroup.add(zom);
@@ -93,8 +93,6 @@ play() {
             y += 100;
             index++;
              }                
-             
-         }
         
          zomGroup.bounceOff(zomGroup);
          zomGroup.collide(edges);
@@ -107,6 +105,7 @@ play() {
         
          drawSprites();
      }
+}
 displayMessage() {
     textSize(40);
     text("You have won! Congrats!🥳", displayWidth/2 - 150, displayHeight/2);
